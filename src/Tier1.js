@@ -4,23 +4,56 @@ import Tier2 from './Tier2'
 
 
 export default class Tier1 extends Component {
-
   constructor(props) {
     super(props)
+
     const initialColor = getRandomColor()
+    const childColor = getReducedColor(initialColor)
     this.state = {
       color: initialColor,
-      childColor: getReducedColor(initialColor)
+      childColor: childColor,
+      babyColor: getReducedColor(childColor)
     }
   }
 
+  changeTierOneColor = (e) => {
+    if (e.target.className === 'tier1') {
+      const randColor = getRandomColor()
+      const childColor = getReducedColor(randColor)
+      this.setState({
+        color: randColor,
+        childColor: childColor,
+        babyColor: getReducedColor(childColor)
+      })
+    }
+  }
+
+  changeTierTwoColor = (e) => {
+    if (e.target.className === 'tier2') {
+      const childColor = getRandomColor()
+      this.setState({
+        childColor: childColor,
+        babyColor: getReducedColor(childColor)
+      })
+    }
+  }
+
+  changeTierThreeColor = () => {
+    this.setState({
+      babyColor: getRandomColor()
+    })
+  }
+
   render() {
-    // hard coded color values have been added below, though they won't be
-    // present in our solution. What should they be replaced with?
+    const tier2 = <Tier2
+      changeTierTwoColor={this.changeTierTwoColor} changeTierThreeColor={this.changeTierThreeColor}
+      color={this.state.childColor}
+      babyColor={this.state.babyColor} />
+
     return (
-      <div onClick={() => {this.setState({color: "#000"})}} className="tier1" style={{backgroundColor: this.state.color, color: this.state.color}}>
-        <Tier2 color={"#0F0"} />
-        <Tier2 color={"#0FF"} />
+      <div onClick={this.changeTierOneColor} className="tier1" style={{backgroundColor: this.state.color, color: this.state.color}}>
+        {tier2}
+        {tier2}
       </div>
     )
   }
