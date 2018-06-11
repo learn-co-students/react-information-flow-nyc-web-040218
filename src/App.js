@@ -4,6 +4,7 @@ import Tier1 from './Tier1.js'
 
 class App extends Component {
   render() {
+    console.log("App Render");
     return (
       <div className="App">
         <Tier1 />

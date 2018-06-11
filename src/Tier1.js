@@ -16,21 +16,28 @@ export default class Tier1 extends Component {
 
   parentColor = (e) => {
     if (e.target.className === "tier1"){
-      let color = getRandomColor();
+      const pColor = getRandomColor();
       this.setState({
-        color: color,
-        childColor: getReducedColor(color)
+        color: pColor,
+        childColor: getReducedColor(pColor)
       })
     }
   }
 
+  setChildColor = (e) => {
+    if (e.target.className === "tier2"){
+      this.setState({
+        childColor: getRandomColor()
+      }) 
+    }
+  }
+
   render() {
-    // hard coded color values have been added below, though they won't be
-    // present in our solution. What should they be replaced with?
+    console.log("Tier1 Render");
     return (
       <div onClick={this.parentColor} className="tier1" style={{backgroundColor: this.state.color, color: this.state.color}}>
-        <Tier2 color={this.state.childColor} />
-        <Tier2 color={this.state.childColor} />
+        <Tier2 color={this.state.childColor} clickHanlder={this.setChildColor} />
+        <Tier2 color={this.state.childColor} clickHanlder={this.setChildColor} />
       </div>
     )
   }
