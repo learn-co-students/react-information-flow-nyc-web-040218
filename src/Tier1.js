@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { getRandomColor, getReducedColor } from './randomColorGenerator.js'
 import Tier2 from './Tier2'
-
+import pic from './nick.png'
 
 export default class Tier1 extends Component {
   constructor(props) {
@@ -23,7 +23,8 @@ export default class Tier1 extends Component {
       this.setState({
         color: randColor,
         childColor: childColor,
-        babyColor: getReducedColor(childColor)
+        babyColor: getReducedColor(childColor),
+        show: null
       })
     }
   }
@@ -40,15 +41,17 @@ export default class Tier1 extends Component {
 
   changeTierThreeColor = () => {
     this.setState({
-      babyColor: getRandomColor()
+      babyColor: getRandomColor(),
+      show: <img src={pic} style = {{ width: '100%', marginTop: '14px'}}/>
     })
   }
 
   render() {
+    const show = this.state.show
     const tier2 = <Tier2
       changeTierTwoColor={this.changeTierTwoColor} changeTierThreeColor={this.changeTierThreeColor}
       color={this.state.childColor}
-      babyColor={this.state.babyColor} />
+      babyColor={this.state.babyColor} show={this.state.show} />
 
     return (
       <div onClick={this.changeTierOneColor} className="tier1" style={{backgroundColor: this.state.color, color: this.state.color}}>
